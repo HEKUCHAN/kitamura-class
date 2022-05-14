@@ -34,8 +34,6 @@ print("ALLOWED_HOSTS:")
 for allowed_host in ALLOWED_HOSTS:
     print("    ", allowed_host)
 
-print("#######################################")
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "corsheaders",
+    "calc_bmi"
 ]
 
 MIDDLEWARE = [
