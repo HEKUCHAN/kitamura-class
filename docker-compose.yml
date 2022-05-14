@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  db:
+    container_name: kitamura_db
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: kitamura_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: P@assw0rd
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./docker/sql/mysql:/var/lib/mysql
+      - ./docker/sql/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+  web:
+    container_name:  kitamura_web
+    build: ./docker/python
+    command: >
+      uwsgi --socket :8000 --http :8001 --module config.wsgi --py-autoreload 1 -b 32768
+    environment:
+      SECRET_KEY: "HelloWorldPythonDjango1234"
+      DEBUG: "True"
+      ALLOWED_HOSTS: web,localhost,127.0.0.1
+      PORT: 3306
+      DB_ENGINE: mysql.connector.django
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_HOST: db
+    volumes:
+      - ./src:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.13
+    container_name: kitamura_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/conf:/etc/nginx/conf.d
+      - ./docker/nginx/uwsgi_params:/etc/nginx/uwsgi_params
+    depends_on:
+      - web
+
+volumes:
+  mysqldata:
