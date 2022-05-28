@@ -7,5 +7,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
+RUN apt install ibtk8.6 -y
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt

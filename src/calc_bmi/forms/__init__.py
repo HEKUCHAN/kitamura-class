@@ -1,1 +1,1 @@
-from .calcbmi import CalcBmiForm
+from .upload_image import UploadImageForm

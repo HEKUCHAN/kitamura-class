@@ -4,6 +4,5 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('calcbmi/', views.calcbmi, name='calcbmi'),
+    path('', views.index, name='index')
 ]

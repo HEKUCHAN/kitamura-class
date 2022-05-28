@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI Calc</title>
+    <title>犬か猫判断サイト！</title>
 </head>
 <body>
-    <h1>ホーム画面</h1>
+    <h1>犬か猫か判断しよう！</h1>
+
+    <div>
+        <h2>画像をアップロードして予測する</h2>
+
+        <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ upload_form }}</p>
+            <p><input type="submit" value="予測する"></p>
+        </form>
+    </div>
 </body>
 </html>
